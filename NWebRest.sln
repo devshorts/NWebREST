@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDuinoUtils", "NetDuinoUtils\NetDuinoUtils.csproj", "{BB6C5BB1-D5DC-4FC1-AD4C-8D77CF0F7226}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWebREST", "NWebREST\NWebREST.csproj", "{2343B2DB-A007-4724-A3B5-8547A9046D80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB6C5BB1-D5DC-4FC1-AD4C-8D77CF0F7226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6C5BB1-D5DC-4FC1-AD4C-8D77CF0F7226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6C5BB1-D5DC-4FC1-AD4C-8D77CF0F7226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6C5BB1-D5DC-4FC1-AD4C-8D77CF0F7226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2343B2DB-A007-4724-A3B5-8547A9046D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2343B2DB-A007-4724-A3B5-8547A9046D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2343B2DB-A007-4724-A3B5-8547A9046D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2343B2DB-A007-4724-A3B5-8547A9046D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70701BF3-570A-4707-90C7-5C2F3CEEA7C8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
