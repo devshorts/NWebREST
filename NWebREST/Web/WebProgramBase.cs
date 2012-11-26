@@ -10,12 +10,6 @@ namespace NWebREST.Web
 
         public abstract void Initialize();
 
-        public void Register()
-        {
-            // register our web api callbacks
-            WebServerWrapper.RegisterEndPoints(GetEndPoints());
-        }
-
-        protected abstract ArrayList GetEndPoints();
+        public abstract ArrayList AvailableEndPoints();
     }
 }

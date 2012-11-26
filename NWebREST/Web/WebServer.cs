@@ -7,11 +7,9 @@ using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using Microsoft.SPOT.Net.NetworkInformation;
 using NetDuinoUtils.Utils;
-using NWebREST.Web;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
-using EndPoint = NWebREST.Web.EndPoint;
 
-namespace Onoffswitch.NetDuinoUtils.Web
+namespace NWebREST.Web
 {
     /// <summary>
     /// Simple multithreaded webserver for Netduino.

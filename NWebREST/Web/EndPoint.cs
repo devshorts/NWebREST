@@ -17,6 +17,7 @@ namespace NWebREST.Web
         private string[] _arguments;
 
         public bool UsesManualSocket { get; set; }
+
         public string Description { get; set; }
 
         /// <summary>

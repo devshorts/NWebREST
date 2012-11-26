@@ -45,7 +45,7 @@ namespace Demo
             ThreadUtil.Start(() => ButtonUtils.OnBoardButtonPushed(WriteToLed));
         }
 
-        protected override ArrayList GetEndPoints()
+        public override ArrayList AvailableEndPoints()
         {
             var list = new ArrayList
                            {

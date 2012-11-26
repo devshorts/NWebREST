@@ -1,5 +1,4 @@
 using System.Collections;
-using Onoffswitch.NetDuinoUtils.Web;
 
 namespace NWebREST.Web
 {
@@ -12,12 +11,11 @@ namespace NWebREST.Web
         private static WebServer _server;
         private static ArrayList _endPoints;
 
-
         /// <summary>
         /// Register REST endpoint for callback invocation with the web server
         /// </summary>
         /// <param name="endPoints"></param>
-        public static void RegisterEndPoints(ArrayList endPoints)
+        private static void RegisterEndPoints(ArrayList endPoints)
         {
             if(_endPoints == null)
             {
@@ -35,7 +33,7 @@ namespace NWebREST.Web
             foreach (IWebProgram webProgram in items)
             {
                 webProgram.Initialize();
-                webProgram.Register();
+                RegisterEndPoints(webProgram.AvailableEndPoints());
             }
         }
         /// <summary>
