@@ -11,7 +11,7 @@ namespace Demo
         public static void Main()
         {
             // write your code here
-            LcdWriter.Instance.Write("Web Demo Ready! " + DateTime.Now);
+            LcdWriter.Instance.Write("Web Demo Ready! " + DateTime.Now.TimeOfDay);
 
             WebServerWrapper.InitializeWebEndPoints(new ArrayList
                                                         {

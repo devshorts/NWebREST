@@ -166,6 +166,7 @@ namespace Onoffswitch.NetDuinoUtils.Web
             using (var server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
                 server.Bind(new IPEndPoint(IPAddress.Any, Port));
+
                 server.Listen(1);
 
                 while (!_cancel)

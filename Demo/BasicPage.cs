@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using NetDuinoUtils.Utils;
 using NWebREST.Web;
 
 namespace Playground
@@ -19,17 +21,35 @@ namespace Playground
                            {
                                new EndPoint
                                    {
-                                       Action = Test,
-                                       Name = "test.html",
+                                       Action = Echo,
+                                       Name = "echoArgs",
                                        Description = "Writes the URL arguments to a serial LCD hooked up to COM1"
                                    }
                            };
             return list;
         }
 
-        private string Test(EndPointActionArguments misc, object[] items)
+        private string Echo(EndPointActionArguments misc, object[] items)
         {
-            return "<html><body>here</body></html>";
+            String text = "";
+            if (items != null && items.Length > 0)
+            {
+                
+                foreach(var item in items)
+                {
+                    text += item.ToString().Replace("%20", " ") + " ";
+                }
+
+                LcdWriter.Instance.Write(text);
+
+                if (text.Length > 16 * 2)
+                {
+                    return "TEXT TOO LONG, DISPLAYING: " +
+                           text.Substring(text.Length - 16 * 2, 16 * 2 - (text.Length - 16 * 2));
+                }
+            }
+
+            return "OK. Wrote out: " + (text.Length == 0 ? "n/a" :  text);
         }
 
         #endregion
