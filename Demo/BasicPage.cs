@@ -3,29 +3,25 @@ using System.Collections;
 using NetDuinoUtils.Utils;
 using NWebREST.Web;
 
-namespace Playground
+namespace Demo
 {
-    public class BasicPage : WebProgramBase
+    public class BasicPage : IWebProgram
     {
-       
         #region Endpoint initialization
 
-        public override void Initialize()
-        {
-            
-        }
+        public void Initialize() { }
 
-        public override ArrayList AvailableEndPoints()
+        public ArrayList AvailableEndPoints()
         {
             var list = new ArrayList
-                           {
-                               new EndPoint
-                                   {
-                                       Action = Echo,
-                                       Name = "echoArgs",
-                                       Description = "Writes the URL arguments to a serial LCD hooked up to COM1"
-                                   }
-                           };
+                {
+                    new EndPoint
+                        {
+                            Action = Echo,
+                            Name = "echoArgs",
+                            Description = "Writes the URL arguments to a serial LCD hooked up to COM1"
+                        }
+                };
             return list;
         }
 
@@ -34,25 +30,21 @@ namespace Playground
             String text = "";
             if (items != null && items.Length > 0)
             {
-                
-                foreach(var item in items)
+                foreach (var item in items)
                 {
-                    text += item.ToString().Replace("%20", " ") + " ";
+                    text += item.ToString() + " ";
                 }
 
                 LcdWriter.Instance.Write(text);
-
-                if (text.Length > 16 * 2)
-                {
-                    return "TEXT TOO LONG, DISPLAYING: " +
-                           text.Substring(text.Length - 16 * 2, 16 * 2 - (text.Length - 16 * 2));
-                }
+            }
+            else
+            {
+                LcdWriter.Instance.Write("No arguments!");
             }
 
-            return "OK. Wrote out: " + (text.Length == 0 ? "n/a" :  text);
+            return "OK. Wrote out: " + (text.Length == 0 ? "n/a" : text);
         }
 
         #endregion
-
     }
 }

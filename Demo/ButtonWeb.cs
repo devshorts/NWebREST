@@ -7,7 +7,7 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
 namespace Demo
 {
-    public class ButtonWeb : WebProgramBase
+    public class ButtonWeb : IWebProgram
     {
         #region Data
 
@@ -31,7 +31,7 @@ namespace Demo
         {
             lock (LockObject)
             {
-               return "Button status is " + _buttonPushed + ", arguments: " + items.FormatAsCommaList();
+               return "Button status is " + _buttonPushed;
             }
         }
 
@@ -39,13 +39,13 @@ namespace Demo
 
         #region Endpoint initialization
 
-        public override void Initialize()
+        public void Initialize()
         {
             // set our pin listeners on the button
             ThreadUtil.Start(() => ButtonUtils.OnBoardButtonPushed(WriteToLed));
         }
 
-        public override ArrayList AvailableEndPoints()
+        public ArrayList AvailableEndPoints()
         {
             var list = new ArrayList
                            {
@@ -53,7 +53,7 @@ namespace Demo
                                    {
                                        Action = ButtonStatus,
                                        Name = "ButtonStatus",
-                                       Description = "Outputs the button status of the on-board push button"
+                                       Description = "Outputs the button status of the on-board push button. "
                                    }
                            };
             return list;

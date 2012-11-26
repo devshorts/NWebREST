@@ -22,7 +22,7 @@ namespace NetDuinoUtils.Utils
                                          var button = new InputPort(Pins.ONBOARD_SW1, false, Port.ResistorMode.Disabled);
                                          while (true)
                                          {
-                                             var pushed = !button.Read();
+                                             var pushed = button.Read();
                                              if (pushed != _lastStatus)
                                              {
                                                  _lastStatus = pushed;

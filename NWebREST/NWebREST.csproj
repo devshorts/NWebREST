@@ -34,7 +34,6 @@
     <Compile Include="Web\EndPoinEventArgs.cs" />
     <Compile Include="Web\EndPoint.cs" />
     <Compile Include="Web\IWebProgram.cs" />
-    <Compile Include="Web\WebProgramBase.cs" />
     <Compile Include="Web\WebServer.cs" />
     <Compile Include="Web\WebServerWrapper.cs" />
   </ItemGroup>
