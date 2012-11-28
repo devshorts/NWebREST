@@ -13,25 +13,15 @@ namespace NWebREST.Web
 {
     /// <summary>
     /// Simple multithreaded webserver for Netduino.
-    /// Lets user define a set of allowed commands (+ parameters) that can be called on the server.
+    /// Lets user register endpoints that can be called on the server.
     /// When the server receives a valid command, it fires the EndPointReceived event with details
     /// stored in the EndPoinEventArgs parameter.
     /// 
-    /// Usage:
-    /// - Instantiate a new instance of WebServer:
-    ///   WebServer server = new WebServer(80);
-    ///   
-    /// - Add a handler to the EndPointReceived event:
-    ///   server.EndPointReceived += new WebServer.EndPointReceivedHandler(server_CommandReceived);
-    ///   
-    /// - Add one or more commands:
-    ///   server.AllowedEndPoints.Add(new WebCommand("setled", 1));        // Means that you can call http://[ip-address]/setled/argument1
-    ///   server.AllowedEndPoints.Add(new WebCommand("writechannel", 2));  // Means that you can call http://[ip-address]/writechannel/argument1/argument2 (e.g. channel/value)
+    /// Modifications By:   Anton Kropp
+    /// Contact:            akropp@gmail.com
+    /// Latest revision:    28 november 2012
     /// 
-    /// - Initialize the server:
-    ///   server.Initialize();
-    ///   
-    /// Author:             Jasper Schuurmans
+    /// Original Author:    Jasper Schuurmans
     /// Contact:            jasper@schuurmans.cc
     /// Latest revision:    06 april 2011
     /// </summary>
@@ -161,72 +151,72 @@ namespace NWebREST.Web
         /// </summary>
         private void StartServer()
         {
-using (var server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
-{
-    server.Bind(new IPEndPoint(IPAddress.Any, Port));
-
-    server.Listen(1);
-
-    while (!_cancel)
-    {
-        var connection = server.Accept();
-
-        if (connection.Poll(-1, SelectMode.SelectRead))
-        {
-            // Create buffer and receive raw bytes.
-            var bytes = new byte[connection.Available];
-                        
-            connection.Receive(bytes);
-
-            // Convert to string, will include HTTP headers.
-            var rawData = new string(Encoding.UTF8.GetChars(bytes));
-
-            EndPoint endPoint = InterpretRequest(rawData);
-
-            if (endPoint != null)
+            using (var server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
-                if (_enableLedStatus)
+                server.Bind(new IPEndPoint(IPAddress.Any, Port));
+
+                server.Listen(1);
+
+                while (!_cancel)
                 {
-                    PingLed();
-                }
+                    var connection = server.Accept();
 
-                // dispatch the endpoint
-                var e = new EndPoinEventArgs(endPoint, connection);
+                    if (connection.Poll(-1, SelectMode.SelectRead))
+                    {
+                        // Create buffer and receive raw bytes.
+                        var bytes = new byte[connection.Available];
 
-                if (EndPointReceived != null)
-                {
-                    ThreadUtil.SafeQueueWorkItem(() =>
-                                            {
-                                                try
-                                                {
-                                                    EndPointReceived(null, e);
+                        connection.Receive(bytes);
 
-                                                    if (!e.ManualSent)
-                                                    {
-                                                        var response = e.ReturnString;
+                        // Convert to string, will include HTTP headers.
+                        var rawData = new string(Encoding.UTF8.GetChars(bytes));
 
-                                                        SendResponse(response, connection);
-                                                    }
-                                                    else
-                                                    {
-                                                        connection.Close();
-                                                    }
-                                                }
-                                                catch(Exception ex)
-                                                {
-                                                    SendResponse("error: " + ex, connection);
-                                                }
-                                            });
+                        EndPoint endPoint = InterpretRequest(rawData);
+
+                        if (endPoint != null)
+                        {
+                            if (_enableLedStatus)
+                            {
+                                PingLed();
+                            }
+
+                            // dispatch the endpoint
+                            var e = new EndPoinEventArgs(endPoint, connection);
+
+                            if (EndPointReceived != null)
+                            {
+                                ThreadUtil.SafeQueueWorkItem(() =>
+                                                                 {
+                                                                     try
+                                                                     {
+                                                                         EndPointReceived(null, e);
+
+                                                                         if (!e.ManualSent)
+                                                                         {
+                                                                             var response = e.ReturnString;
+
+                                                                             SendResponse(response, connection);
+                                                                         }
+                                                                         else
+                                                                         {
+                                                                             connection.Close();
+                                                                         }
+                                                                     }
+                                                                     catch (Exception ex)
+                                                                     {
+                                                                         SendResponse("error: " + ex, connection);
+                                                                     }
+                                                                 });
+                            }
+                        }
+                        else
+                        {
+                            SendResponse(GetApiList(), connection);
+                        }
+                    }
+
                 }
             }
-            else
-            {
-                SendResponse(GetApiList(), connection);
-            }
-        }
-
-    }
-}
         }
 
         private string GetApiList()
