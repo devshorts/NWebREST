@@ -5,7 +5,7 @@ using NWebREST.Web;
 
 namespace Demo
 {
-    public class BasicPage : IWebProgram
+    public class BasicPage : IEndPointProvider
     {
         #region Endpoint initialization
 

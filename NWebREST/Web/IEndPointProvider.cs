@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace NWebREST.Web
 {
-public interface IWebProgram
+public interface IEndPointProvider
 {
     void Initialize();
     ArrayList AvailableEndPoints();

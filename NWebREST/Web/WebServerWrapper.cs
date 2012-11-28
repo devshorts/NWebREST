@@ -30,10 +30,10 @@ public static class WebServerWrapper
 
     public static void InitializeWebEndPoints(ArrayList items)
     {
-        foreach (IWebProgram webProgram in items)
+        foreach (IEndPointProvider endpoint in items)
         {
-            webProgram.Initialize();
-            RegisterEndPoints(webProgram.AvailableEndPoints());
+            endpoint.Initialize();
+            RegisterEndPoints(endpoint.AvailableEndPoints());
         }
     }
     /// <summary>
