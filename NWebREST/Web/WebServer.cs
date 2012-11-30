@@ -199,7 +199,7 @@ namespace NWebREST.Web
                                                                          }
                                                                          else
                                                                          {
-                                                                             connection.Close();
+                                                                             // the client should close the socket
                                                                          }
                                                                      }
                                                                      catch (Exception ex)
