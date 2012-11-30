@@ -7,7 +7,7 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
 namespace Demo
 {
-    public class ButtonWeb : IWebProgram
+    public class ButtonWeb : IEndPointProvider
     {
         #region Data
 
