@@ -25,22 +25,26 @@ namespace Demo
             return list;
         }
 
-        private string Echo(EndPointActionArguments misc, object[] items)
+        #endregion
+
+        #region Endpoint Execution
+
+        private string Echo(EndPointActionArguments misc, string[] items)
         {
             String text = "";
             if (items != null && items.Length > 0)
             {
                 foreach (var item in items)
                 {
-                    text += item.ToString() + " ";
+                    text += item + " ";
                 }
-
-                LcdWriter.Instance.Write(text);
             }
             else
             {
-                LcdWriter.Instance.Write("No arguments!");
+                text = "No arguments!";
             }
+
+            LcdWriter.Instance.Write(text);
 
             return "OK. Wrote out: " + (text.Length == 0 ? "n/a" : text);
         }
