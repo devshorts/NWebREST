@@ -360,9 +360,6 @@ a {
 
         /// <summary>
         /// List of commands that can be handled by the server.
-        /// Because of the limited support for generics on the .NET micro framework,
-        /// this property is implemented as an ArrayList. Make sure you only add
-        /// objects of type Blinq.Netduino.WebCommand to this list.
         /// </summary>
         private readonly System.Collections.ArrayList _allowedEndPoints = new System.Collections.ArrayList();
 
