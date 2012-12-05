@@ -186,27 +186,20 @@ namespace NWebREST.Web
                             if (EndPointReceived != null)
                             {
                                 ThreadUtil.SafeQueueWorkItem(() =>
-                                                                 {
-                                                                     try
-                                                                     {
-                                                                         EndPointReceived(null, e);
+                                {
+                                    EndPointReceived(null, e);
 
-                                                                         if (!e.ManualSent)
-                                                                         {
-                                                                             var response = e.ReturnString;
+                                    if (e.ManualSent)
+                                    {
+                                        // the client should close the socket
+                                    }
+                                    else
+                                    {
+                                        var response = e.ReturnString;
 
-                                                                             SendResponse(response, connection);
-                                                                         }
-                                                                         else
-                                                                         {
-                                                                             // the client should close the socket
-                                                                         }
-                                                                     }
-                                                                     catch (Exception ex)
-                                                                     {
-                                                                         SendResponse("error: " + ex, connection);
-                                                                     }
-                                                                 });
+                                        SendResponse(response, connection);
+                                    }
+                                });
                             }
                         }
                         else

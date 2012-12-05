@@ -25,9 +25,10 @@ namespace Demo
         {
             Led = new OutputPort(Pins.GPIO_PIN_D13, false);
         }
+
         #region Web Server Endpoint Implementation
 
-        private static string ButtonStatus(EndPointActionArguments misc, object[] items)
+        private static string ButtonStatus(EndPointActionArguments misc, string[] items)
         {
             lock (LockObject)
             {

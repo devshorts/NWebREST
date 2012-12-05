@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace NWebREST.Web
 {
-    public delegate string EndPointAction(EndPointActionArguments arguments, params object[] items);
+    public delegate string EndPointAction(EndPointActionArguments arguments, params string[] items);
 
     public class EndPointActionArguments
     {
@@ -12,8 +12,6 @@ namespace NWebREST.Web
     
     public class EndPoint
     {
-        private EndPointAction _action;
-
         private string[] _arguments;
 
         public bool UsesManualSocket { get; set; }
@@ -23,7 +21,10 @@ namespace NWebREST.Web
         /// <summary>
         /// The function to be called when the endpoint is hit
         /// </summary>
-        public EndPointAction Action { set { _action = value; } }
+        public EndPointAction Action
+        {
+            private get; set;
+        }
 
         /// <summary>
         /// The name of the endpoint, this is basically the servers route
@@ -32,7 +33,6 @@ namespace NWebREST.Web
 
         public string[] Arguments { set { _arguments = value; } }
 
-
         /// <summary>
         /// Execute this endpoint. We'll call the action with the supplied arguments and
         /// return whatever string the action returns.
@@ -40,9 +40,9 @@ namespace NWebREST.Web
         /// <returns></returns>
         public String Execute(EndPointActionArguments misc)
         {
-            if (_action != null)
+            if (Action != null)
             {
-                return _action(misc, _arguments);
+                return Action(misc, _arguments);
             }
             return "Unknown action";
         }
