@@ -7,6 +7,7 @@ using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using Microsoft.SPOT.Net.NetworkInformation;
 using NetDuinoUtils.Utils;
+using NetDuinoUtils;
 using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
 namespace NWebREST.Web
@@ -319,13 +320,26 @@ a {
         {
             try
             {
-                byte[] returnBytes = Encoding.UTF8.GetBytes(response);
+                byte[] returnBytes = Encoding.UTF8.GetBytes(MakeOkHeader(response.Length) + response);
                 WriteBytes(returnBytes, connection);
             }
             catch(Exception ex)
             {
                 
             }
+        }
+
+        private static string MakeOkHeader(int contentLength)
+        {
+            return 
+@"HTTP/1.1 200 OK
+Date: {0}
+Server: Netduino
+Content-Length: {1}
+Connection: close
+Content-Type: text/plain
+
+".Format(DateTime.Now.ToString("R"), contentLength);
         }
 
         private void PingLed()
