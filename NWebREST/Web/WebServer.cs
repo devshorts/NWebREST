@@ -337,7 +337,7 @@ Date: {0}
 Server: Netduino
 Content-Length: {1}
 Connection: close
-Content-Type: text/plain
+Content-Type: text/html
 
 ".Format(DateTime.Now.ToString("R"), contentLength);
         }
